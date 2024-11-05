@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shape Visualizer</title>
+    <style>
+        {% if result and result.status == 'success' %}
+            {{ result.description|safe }}
+        {% endif %}
+    </style>
+</head>
+<body>
+    <h1>Shape Visualizer</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generate Shape</button>
+    </form>
+
+    {% if result %}
+        <h2>Result:</h2>
+        {% if result.status == 'success' %}
+            <div class="custom-shape"></div>
+        {% else %}
+            <p style="color: red;">Error: {{ result.description }}</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
